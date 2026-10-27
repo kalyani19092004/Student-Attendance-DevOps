@@ -1,0 +1,5 @@
+node_modules
+attendance.db
+.git
+tests
+README.md

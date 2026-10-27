@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: attendance-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: attendance-app
+  template:
+    metadata:
+      labels:
+        app: attendance-app
+    spec:
+      containers:
+        - name: attendance-app
+          image: student-attendance:1.0
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+            - name: DB_PATH
+              value: /data/attendance.db
+          volumeMounts:
+            - name: attendance-data
+              mountPath: /data
+      volumes:
+        - name: attendance-data
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: attendance-service
+spec:
+  selector:
+    app: attendance-app
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: NodePort

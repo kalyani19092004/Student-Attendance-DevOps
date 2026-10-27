@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Attendance Management</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Student Attendance Management</h1>
+    <p>Record attendance for seven periods and view monthly summaries.</p>
+  </header>
+  <main>
+    <section class="panel">
+      <h2>Add Student</h2>
+      <form id="student-form">
+        <input id="roll" placeholder="Roll number" required>
+        <input id="name" placeholder="Student name" required>
+        <input id="department" placeholder="Department" required>
+        <button type="submit">Add Student</button>
+      </form>
+      <p id="student-message" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Daily Attendance</h2>
+      <label for="attendance-date">Date:</label>
+      <input type="date" id="attendance-date" required>
+      <div class="button-row">
+        <button id="mark-all-present" type="button">Mark All Present</button>
+        <button id="mark-all-absent" type="button" class="secondary">Mark All Absent</button>
+        <button id="save-attendance" type="button">Save Attendance</button>
+      </div>
+      <div class="table-wrap">
+        <table id="attendance-table">
+          <thead><tr><th>Roll No.</th><th>Name</th><th>Department</th>
+            <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th>
+          </tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="attendance-message" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Monthly Summary</h2>
+      <label for="month">Month:</label>
+      <input type="month" id="month" required>
+      <button id="load-summary" type="button">Show Summary</button>
+      <button id="export-csv" type="button" class="secondary">Export CSV</button>
+      <div class="table-wrap">
+        <table id="summary-table">
+          <thead><tr><th>Roll No.</th><th>Name</th><th>Attended</th><th>Absent</th><th>Working Periods</th><th>Attendance %</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
