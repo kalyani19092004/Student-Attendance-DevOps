@@ -1,21 +1,37 @@
+
 pipeline {
-  agent any
-  stages {
-    stage('Checkout') {
-      steps { checkout scm }
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Install dependencies') {
+            steps {
+                bat 'node --version'
+                bat 'npm.cmd --version'
+                bat 'npm.cmd install'
+            }
+        }
+
+        stage('Validation') {
+            steps {
+                bat 'node --check server.js'
+                bat 'node --check public/app.js'
+                echo 'JavaScript validation completed successfully.'
+            }
+        }
     }
-    stage('Install dependencies') {
-      steps { sh 'npm install' }
+
+    post {
+        success {
+            echo 'Build completed successfully!'
+        }
+        failure {
+            echo 'Build failed. Check the Console Output.'
+        }
     }
-    stage('Validation') {
-      steps {
-        sh 'node --check server.js'
-        sh 'node --check public/app.js'
-      }
-    }
-  }
-  post {
-    success { echo 'Build and JavaScript validation completed successfully.' }
-    failure { echo 'Pipeline failed. Review the console output.' }
-  }
 }
